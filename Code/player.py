@@ -17,6 +17,17 @@ class Player:
 
     def pay(self, amount):
         self.cash -= amount
+    
+    def move(self,steps):
+        self.position += steps
+
+    def retire(self):
+        self.retired = True
+
+    def balance(self):
+        return self.cash
+
+    
 
 
 
