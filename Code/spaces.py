@@ -7,53 +7,53 @@ class Space:
         raise NotImplementedError("Subclasses must implement activate()")
 
     
-    class start(space):
-        def __init__(self):
-            super().__init__("Start")
+class Start(Space):
+    def __init__(self):
+        super().__init__("Start")
 
-    def apply(self, GameOfLife, player):
+    def activate(self, GameOfLife, player):
         pass
 
-    class payday():
-        def __init__(self):
-            super().__init__("Payday")
+class Payday(Space):
+    def __init__(self):
+        super().__init__("Payday")
 
-    def apply(self, GameOfLife, player):
+    def activate(self, GameOfLife, player):
         pass
 
-    class taxpay():
-        def __init__(self):
-            super().__init__("Taxpay")
+class Taxpay(Space):
+    def __init__(self):
+        super().__init__("Taxpay")
 
-    def apply(self, GameOfLife, player):
+    def activate(self, GameOfLife, player):
         pass
 
-    class peaceful_day():
-        def __init__(self):
-            super().__init__("Peaceful Day")
+class Empty(Space):
+    def __init__(self):
+         super().__init__("Empty")
 
-    def apply(self, GameOfLife, player):
+    def activate(self, GameOfLife, player):
         pass
 
-    class event():
-        def __init__(self):
-            super().__init__("Event")
+class Event(Space):
+    def __init__(self):
+        super().__init__("Event")
 
-    def apply(self, GameOfLife, player):
+    def activate(self, GameOfLife, player):
         pass
 
-    class choice():
-        def __init__(self):
-            super().__init__("Choice")
+class Choice(Space):
+    def __init__(self):
+        super().__init__("Choice")
 
-    def apply(self, GameOfLife, player):
+    def activate(self, GameOfLife, player):
         pass
 
-    class retirement():
-        def __init__(self):
-            super().__init__("Retirement")
+class Retirement(Space):
+    def __init__(self):
+        super().__init__("Retirement")
 
-    def apply(self, GameOfLife, player):
+    def activate(self, GameOfLife, player):
         pass
 
     
