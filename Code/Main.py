@@ -73,9 +73,18 @@ class GameOfLife:
             p = Player(name)
             
             self.players.append(p)
+            
+        print("--" * 5)
+        print("Welcome all")
+        print("--" * 5)
+        for players in self.players:
+            print(players)
+
+    
 
 game = GameOfLife()
 
 game.players_signup()
+
 
 

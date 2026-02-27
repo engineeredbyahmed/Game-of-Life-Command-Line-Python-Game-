@@ -23,6 +23,9 @@ class Player:
         self.salary = 0 
         self.retired = False 
 
+    def __str__(self):
+        return f"{self.name}"
+
     def earn(self, amount):
         self.cash += amount
 
