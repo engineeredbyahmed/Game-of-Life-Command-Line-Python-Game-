@@ -1,6 +1,6 @@
 
 class Space:
-    
+
     def __init__(self, name):
         self.name = name
 
@@ -27,7 +27,9 @@ class Taxpay(Space):
         super().__init__("Taxpay")
 
     def activate(self, GameOfLife, player):
-        pass
+        player.pay(500)
+
+        
 
 class Empty(Space):
     def __init__(self):
