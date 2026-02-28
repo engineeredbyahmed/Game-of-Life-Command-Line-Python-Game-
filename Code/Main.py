@@ -20,7 +20,7 @@ ________________________________ End of declaration ____________________________
 """
 
 from player import Player
-import dice
+from dice import Dice
 import spaces
 from board import Board
 
@@ -57,7 +57,7 @@ class GameOfLife:
     def players_signup(self):
         while True:
             try:
-                num_players = int(input("How many people are playing today?(2-6 players): ").strip())
+                num_players = int(input("How many people are playing today? (2-6 players): ").strip())
                 if 2<= num_players <=6 :
                     break
                 else:
@@ -74,17 +74,43 @@ class GameOfLife:
             
             self.players.append(p)
             
-        print("--" * 5)
+        print("--" * 6)
         print("Welcome all")
-        print("--" * 5)
+        print("--" * 6)
         for players in self.players:
             print(players)
+
+    def Play(self):
+        self.players_signup()
+
+        while True:
+            self.round += 1
+            print(f"\n--- Round {self.round} ---")
+
+            for players in self.players:
+
+                print(
+                        f"Player turn: {players.name}, owns {players.cash} "
+                        f"and standing on position {players.position}"
+                            )   
+                
+                action = input("Enter (1) to roll/n, (2) for game summary, or (3) to quit")
+
+                steps = Dice.roll()
+                print(f"{players.name} got {steps}!")
+                players.move(steps)
+                
+                space = self.Board.get_location(players.position) 
+                space.activate(self, players)
+
+
+
 
     
 
 game = GameOfLife()
 
-game.players_signup()
+game.Play()
 
 
 
