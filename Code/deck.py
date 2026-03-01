@@ -1,0 +1,11 @@
+import random
+
+class deck:
+    def __init__(self, cards):
+        self.cards = []
+
+    def shuffle(self):
+        random.shuffle(self.cards)
+
+    def draw(self):
+        return self.cards.pop()
