@@ -24,13 +24,14 @@ from dice import Dice
 import spaces
 from board import Board
 from deck import Deck
-from card import Cards
+import card
 
 class GameOfLife:
 
     def __init__(self):
         self.players = []
         self.round = 0
+        self.max_rounds = 25
 
         self.Board = Board([spaces.Start(),
                         spaces.Empty(),
@@ -57,14 +58,14 @@ class GameOfLife:
         
 
         self.cards = Deck([
-            Cards.Gift("Gift from best friend (+250)", 250),
-            Cards,Ticket("Speeding Ticket (-150)", -150),
-            Cards.Support("Family Support (+500)", 500),
-            Cards.Jump("You passed your exam. Move 2 extra steps", 2),
-            Cards.Fall("You forgot to do laundry. Move 3 steps back" , 3)
+            card.Gift("Gift from best friend (+250)", 250),
+            card.Ticket("Speeding Ticket (-150)", -150),
+            card.Support("Family Support (+500)", 500),
+            card.Jump("You passed your exam. Move 2 extra steps", 2),
+            card.Fall("You forgot to do laundry. Move 3 steps back" , 3)
         ]
 )
-
+        self.cards.shuffle()
 
 
     def players_signup(self):
@@ -93,6 +94,26 @@ class GameOfLife:
         for players in self.players:
             print(players)
 
+    
+    def summary(self):
+        print("------- Game Summary -------")
+        print("Round:", self.round, "/", self.max_rounds)
+        print("Board size:", self.Board.size())
+        for players in self.players:
+            if players.retired == True:
+                print(players.name, "This player has retired")
+            if players.retired == False:
+                print(players.name, "This player is still playing")
+            print("-", players.name, "| Cash:", players.cash) 
+            print("Pos:", players.position, "| Salary:", players.salary)
+        print("----------------------------\n")
+
+
+
+    #-------------------------
+    # Starting the Game (↓)
+    #-------------------------
+
     def Play(self):
         self.players_signup()
 
@@ -109,9 +130,26 @@ class GameOfLife:
                 
                 action = input("Enter (1) to roll/n, (2) for game summary, or (3) to quit: ")
 
-                steps = Dice.roll()
-                print(f"{players.name} got {steps}!")
-                players.move(steps)
+
+                if action == "1":
+                    steps = Dice.roll()
+                    print(f"{players.name} got {steps}!")
+                    players.move(steps)
+                    
+                    #return self.print_summary()
+                    
+
+                if action == "2":
+                    self.summary()
+                    action_2nd = input("Enter (1) , (3) to quit: ")
+                    if action_2nd == "3":
+                        print(players.name, "Thank you for playing. Sad to see you go ):")
+                        return self.print_summary()
+                        
+                if action == "3":
+                    print(players.name, "Thank you for playing. Sad to see you go ):")
+                    exit()
+
                 
                 space = self.Board.get_location(players.position) 
                 space.activate(self, players)
