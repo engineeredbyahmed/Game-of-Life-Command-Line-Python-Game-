@@ -1,8 +1,9 @@
 import random
 
-class deck:
+class Deck:
     def __init__(self, cards):
         self.cards = []
+        
 
     def shuffle(self):
         random.shuffle(self.cards)

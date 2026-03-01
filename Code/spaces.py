@@ -20,7 +20,7 @@ class Payday(Space):
         super().__init__("Payday")
 
     def activate(self, GameOfLife, player):
-        pass
+        player.earn(1000)
 
 class Taxpay(Space):
     def __init__(self):

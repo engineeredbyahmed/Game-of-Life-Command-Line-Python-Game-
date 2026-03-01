@@ -23,6 +23,8 @@ from player import Player
 from dice import Dice
 import spaces
 from board import Board
+from deck import Deck
+from card import Cards
 
 class GameOfLife:
 
@@ -52,6 +54,17 @@ class GameOfLife:
                         spaces.Retirement()
                         ]
                         )
+        
+
+        self.cards = Deck([
+            Cards.Gift("Gift from best friend (+250)", 250),
+            Cards,Ticket("Speeding Ticket (-150)", -150),
+            Cards.Support("Family Support (+500)", 500),
+            Cards.Jump("You passed your exam. Move 2 extra steps", 2),
+            Cards.Fall("You forgot to do laundry. Move 3 steps back" , 3)
+        ]
+)
+
 
 
     def players_signup(self):
@@ -72,7 +85,7 @@ class GameOfLife:
 
             p = Player(name)
             
-            self.players += 1
+            self.players.append(p)
             
         print("--" * 6)
         print("Welcome all")
@@ -94,7 +107,7 @@ class GameOfLife:
                         f"and standing on position {players.position}"
                             )   
                 
-                action = input("Enter (1) to roll/n, (2) for game summary, or (3) to quit")
+                action = input("Enter (1) to roll/n, (2) for game summary, or (3) to quit: ")
 
                 steps = Dice.roll()
                 print(f"{players.name} got {steps}!")
