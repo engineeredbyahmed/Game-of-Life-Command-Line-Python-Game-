@@ -21,7 +21,7 @@ class Player:
         self.cash = 5000
         self.position = 0
         self.salary = 0 
-        self.skip = False
+        self.skip_turn = False
         self.retired = False 
 
     def __str__(self):
@@ -40,7 +40,7 @@ class Player:
         self.retired = True
     
     def skip(self):
-        self.skip = True
+        self.skip_turn = True
 
     def balance(self):
         return self.cash

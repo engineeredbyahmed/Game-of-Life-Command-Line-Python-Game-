@@ -26,6 +26,8 @@ from board import Board
 from deck import Deck
 import card
 
+import time
+
 class GameOfLife:
 
     def __init__(self):
@@ -82,11 +84,11 @@ class GameOfLife:
         for i in range(1, num_players + 1):
             name = []
             while name == []:
-                name = input(f"Name for player {i}: ").strip()
+                name = input(f"Name for player {i}: ").strip().capitalize()
 
-            p = Player(name)
+            player = Player(name)
             
-            self.players.append(p)
+            self.players.append(player)
             
         print("--" * 6)
         print("Welcome all")
@@ -99,61 +101,83 @@ class GameOfLife:
         print("------- Game Summary -------")
         print("Round:", self.round, "/", self.max_rounds)
         print("Board size:", self.Board.size())
-        for players in self.players:
-            if players.retired == True:
-                print(players.name, "This player has retired")
-            if players.retired == False:
-                print(players.name, "This player is still playing")
-            print("-", players.name, "| Cash:", players.cash) 
-            print("Pos:", players.position, "| Salary:", players.salary)
+        for player in self.players:
+            if player.retired == True:
+                print(player.name, "has retired")
+            if player.retired == False:
+                print(player.name, "is still playing")
+            print("-", player.name, "| Cash:", player.cash) 
+            print("Pos:", player.position)
         print("----------------------------\n")
 
+    def winner_announcement(self):
+        
+        winner = self.players[0]
 
+        for players in self.players:
+            if players.balance() > winner.balance():
+                winner = players
+                
+
+        print("Winner:", winner.name, "with cash:", winner.balance())
+        
+        
 
     #-------------------------
     # Starting the Game (↓)
     #-------------------------
 
     def Play(self):
+        
         self.players_signup()
 
         while True:
             self.round += 1
             print(f"\n--- Round {self.round} ---")
 
-            for players in self.players:
+            for player in self.players:
+                if getattr(player, "retired", False):
+                    continue
 
-                print(
-                        f"Player turn: {players.name}, owns {players.cash} "
-                        f"and standing on position {players.position}"
-                            )   
-                
-                action = input("Enter (1) to roll/n, (2) for game summary, or (3) to quit: ")
+                while True:
+                    print(
+                        f"Player turn: {player.name}, owns {player.cash} "
+                        f"and standing on position {player.position}"
+                    )
 
+                    action = input("Enter (e) to roll, (p) for game summary, or (q) to quit: ").strip().lower()
 
-                if action == "1":
-                    steps = Dice.roll()
-                    print(f"{players.name} got {steps}!")
-                    players.move(steps)
-                    
-                    #return self.print_summary()
-                    
+                    if action == "p":
+                        print(self.summary())
+                        continue   
 
-                if action == "2":
-                    self.summary()
-                    action_2nd = input("Enter (1) , (3) to quit: ")
-                    if action_2nd == "3":
-                        print(players.name, "Thank you for playing. Sad to see you go ):")
-                        return self.print_summary()
+                    elif action == "q":
+                        print(player.name, "Thank you for playing. Sad to see you go ):")
+                        print(self.summary())
+                        return    
+
+                    elif action == "e":
+                        print("Rolling dice...")
+                        time.sleep(1.5)
+                        steps = Dice.roll()
+                        print(f"{player.name} got {steps}!")
+                        player.move(steps)
+
+                        space = self.Board.get_location(player.position)
+                        space.activate(self, player)
+
+                        break     
+
+                    else:
+                        print("Please choose one of the following e, p, or q.")
                         
-                if action == "3":
-                    print(players.name, "Thank you for playing. Sad to see you go ):")
-                    exit()
+            
+            if all(player.retired for player in self.players):
+                break
 
-                
-                space = self.Board.get_location(players.position) 
-                space.activate(self, players)
-
+        print("------- Game Over -------")
+        self.summary()
+        self.winner_announcement()
 
 
 
