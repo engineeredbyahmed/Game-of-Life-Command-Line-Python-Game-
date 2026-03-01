@@ -72,7 +72,7 @@ class GameOfLife:
 
             p = Player(name)
             
-            self.players.append(p)
+            self.players += 1
             
         print("--" * 6)
         print("Welcome all")
