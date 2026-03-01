@@ -28,6 +28,7 @@ import card
 
 import time
 import random
+from tabulate import tabulate
 
 class GameOfLife:
 
@@ -102,13 +103,23 @@ class GameOfLife:
         print("------- Game Summary -------")
         print("Round:", self.round, "/", self.max_rounds)
         print("Board size:", self.Board.size())
+        print()
+
+        table_data = []
+
         for player in self.players:
-            if player.retired == True:
-                print(player.name, "has retired")
-            if player.retired == False:
-                print(player.name, "is still playing")
-            print("-", player.name, "| Cash:", player.cash) 
-            print("Pos:", player.position)
+            status = "Retired" if player.retired else "Playing"
+
+            table_data.append([
+                player.name,
+                player.cash,
+                player.position,
+                status
+            ])
+
+        headers = ["Player", "Cash", "Position", "Status"]
+
+        print(tabulate(table_data, headers=headers, tablefmt="fancy_grid"))
         print("----------------------------\n")
 
     def winner_announcement(self):
@@ -149,7 +160,7 @@ class GameOfLife:
                     action = input("Enter (e) to roll, (p) for game summary, or (q) to quit: ").strip().lower()
 
                     if action == "p":
-                        print(self.summary())
+                        self.summary()
                         continue   
 
                     elif action == "q":
