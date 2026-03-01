@@ -27,6 +27,7 @@ from deck import Deck
 import card
 
 import time
+import random
 
 class GameOfLife:
 
@@ -164,7 +165,7 @@ class GameOfLife:
                         player.move(steps)
 
                         space = self.Board.get_location(player.position)
-                        space.activate(self, player)
+                        space.activate(self,player)
 
                         break     
 

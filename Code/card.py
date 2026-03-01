@@ -48,10 +48,9 @@ class Jump(Cards):
         self.steps = steps
 
     def apply(self, player):
-        print("Position before:", player.postion)
-        player.postion += self.steps 
-        print(self.description)
-        print("Position after:", player.postion)
+        print("Position before:", player.position)
+        player.position += self.steps 
+        print("Position after:", player.position)
 
 
 class Fall(Cards):
@@ -60,10 +59,9 @@ class Fall(Cards):
         self.steps = steps
 
     def apply(self, player):
-        print("Position before:", player.postion)
-        player.postion -= self.steps 
-        print(self.description)
-        print("Position after:", player.postion)
+        print("Position before:", player.position)
+        player.position -= self.steps 
+        print("Position after:", player.position)
 
 class Skip_Turn(Cards):
     def __init__(self,description):
