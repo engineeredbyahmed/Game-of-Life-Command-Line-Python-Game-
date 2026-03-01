@@ -1,4 +1,4 @@
-
+import time
 import random
 
 class Space:
@@ -39,7 +39,7 @@ class Payday(Space):
 
     def activate(self, game, player):
         player.earn(1000)
-        print(player.name, "is is payday!. You earned 1000!")
+        print(player.name, "it is payday!. You earned 1000!")
 
 class Taxpay(Space):
     def __init__(self):
@@ -63,6 +63,8 @@ class Event(Space):
         super().__init__("Event")
 
     def activate(self, game, player):
+        print("Picking a card...")
+        time.sleep(1.5)
         card = game.cards.draw()    
         print("--- Event Card ---")
         print(card)                 
@@ -87,7 +89,7 @@ class Choice(Space):
                     print(player.name, "You profited 1000!")
                     break
                 else:
-                    print(player.name, "You just lost 1000")
+                    print(player.name, "You just lost the 600 you invested")
             elif option == "2":
                 player.earn(400)
                 print(player.name, "You earned 400")

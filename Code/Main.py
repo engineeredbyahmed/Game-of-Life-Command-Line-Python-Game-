@@ -62,7 +62,7 @@ class GameOfLife:
 
         self.cards = Deck([
             card.Gift("Gift from best friend (+250)", 250),
-            card.Ticket("Speeding Ticket (-150)", -150),
+            card.Ticket("Speeding Ticket (-150)", 150),
             card.Support("Family Support (+500)", 500),
             card.Jump("You passed your exam. Move 2 extra steps", 2),
             card.Fall("You forgot to do laundry. Move 3 steps back" , 3)
@@ -115,9 +115,9 @@ class GameOfLife:
         
         winner = self.players[0]
 
-        for players in self.players:
-            if players.balance() > winner.balance():
-                winner = players
+        for player in self.players:
+            if player.balance() > winner.balance():
+                winner = player
                 
 
         print("Winner:", winner.name, "with cash:", winner.balance())
@@ -154,15 +154,16 @@ class GameOfLife:
 
                     elif action == "q":
                         print(player.name, "Thank you for playing. Sad to see you go ):")
-                        print(self.summary())
-                        return    
-
+                        return self.summary(), self.winner_announcement() 
+                                                
+                    
+                        
                     elif action == "e":
                         print("Rolling dice...")
                         time.sleep(1.5)
                         steps = Dice.roll()
                         print(f"{player.name} got {steps}!")
-                        player.move(steps)
+                        player.move(steps,self.Board.size())
 
                         space = self.Board.get_location(player.position)
                         space.activate(self,player)

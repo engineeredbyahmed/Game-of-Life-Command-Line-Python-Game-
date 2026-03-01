@@ -33,8 +33,11 @@ class Player:
     def pay(self, amount):
         self.cash -= amount
     
-    def move(self, steps):
+    def move(self, steps, board_size):
         self.position += steps
+        if self.position >= board_size - 1:
+            self.position = board_size - 1
+            self.retire()
 
     def retire(self):
         self.retired = True
