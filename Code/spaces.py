@@ -1,5 +1,6 @@
 import time
 import random
+from Style import Style
 
 class Space:
 
@@ -39,7 +40,8 @@ class Payday(Space):
 
     def activate(self, game, player):
         player.earn(1000)
-        print(player.name, "it is payday!. You earned 1000!")
+        #print(player.name, "it is payday!. You earned 1000!")
+        print(player.name, Style.color_text("it is payday!. You earned 1000!", Style.Green))
 
 class Taxpay(Space):
     def __init__(self):
@@ -47,7 +49,7 @@ class Taxpay(Space):
 
     def activate(self, game, player):
         player.pay(500)
-        print(player.name, "You have to pay taxes. 500 is taken from you")
+        print(player.name, Style.color_text("You have to pay taxes. 500 is taken from you.", Style.Red))
 
         
 
@@ -63,10 +65,10 @@ class Event(Space):
         super().__init__("Event")
 
     def activate(self, game, player):
+        print("--- Event Card ---")
         print("Picking a card...")
         time.sleep(1.5)
         card = game.cards.draw()    
-        print("--- Event Card ---")
         print(card)                 
         card.apply(player)    
 
@@ -83,16 +85,17 @@ class Choice(Space):
             option = input("Pick 1 or 2: ").strip()
             if option == "1":
                 player.pay(600)
-                print(player.name, " just paied 600 to invest")
+                print(player.name, " just paid 600 to invest")
                 if random.random() < 0.5:
                     player.earn(1000)
-                    print(player.name, "You profited 1000!")
+                    print(player.name, Style.color_text("You profited 1000!", Style.Green))
                     break
                 else:
-                    print(player.name, "You just lost the 600 you invested")
+                    print(player.name, Style.color_text("You just lost the 600 you invested", Style.Red))
+                    break
             elif option == "2":
                 player.earn(400)
-                print(player.name, "You earned 400")
+                print(player.name, Style.color_text("You earned 400!", Style.Green))
                 break
             else:
                 print(player.name, "Invalid input. Please choose 1 or 2")

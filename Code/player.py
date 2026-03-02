@@ -37,7 +37,8 @@ class Player:
         self.position += steps
         if self.position >= board_size - 1:
             self.position = board_size - 1
-            self.retire()
+        if self.position < 0:
+            self.position = 0
 
     def retire(self):
         self.retired = True

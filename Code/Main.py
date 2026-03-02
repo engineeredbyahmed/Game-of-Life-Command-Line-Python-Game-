@@ -25,6 +25,7 @@ import spaces
 from board import Board
 from deck import Deck
 import card
+from Style import Style
 
 import time
 import random
@@ -56,6 +57,7 @@ class GameOfLife:
                         spaces.Payday(),
                         spaces.Event(),
                         spaces.Choice(),
+                        spaces.Event(),
                         spaces.Retirement()
                         ]
                         )
@@ -66,7 +68,8 @@ class GameOfLife:
             card.Ticket("Speeding Ticket (-150)", 150),
             card.Support("Family Support (+500)", 500),
             card.Jump("You passed your exam. Move 2 extra steps", 2),
-            card.Fall("You forgot to do laundry. Move 3 steps back" , 3)
+            card.Fall("You forgot to do laundry. Move 3 steps back" , 3),
+            card.Skip_Turn("is punished by forced to miss this turn")
         ]
 )
         self.cards.shuffle()
@@ -93,11 +96,11 @@ class GameOfLife:
             self.players.append(player)
             
         print("--" * 6)
-        print("Welcome all")
+        print(Style.color_text("Wellcome All to the Game Of Life!", Style.B_White))
         print("--" * 6)
         for players in self.players:
             print(players)
-
+        
     
     def summary(self):
         print("------- Game Summary -------")
@@ -125,14 +128,27 @@ class GameOfLife:
     def winner_announcement(self):
         
         winner = self.players[0]
+        tie = False
+        
 
         for player in self.players:
             if player.balance() > winner.balance():
                 winner = player
+                tie = False
                 
-
-        print("Winner:", winner.name, "with cash:", winner.balance())
+                
+            elif player.balance() == winner.balance():
+                 tie = True
+                
         
+        if tie:
+            print("It's a tie with cash:", winner.balance())
+        else:
+            print("Winner:", winner.name, "with cash:", winner.balance())
+        
+                 
+        
+            
         
 
     #-------------------------
@@ -148,43 +164,53 @@ class GameOfLife:
             print(f"\n--- Round {self.round} ---")
 
             for player in self.players:
-                if getattr(player, "retired", False):
-                    continue
+                if player.retired:
+                        continue
+
+                if player.skip_turn:
+                        print(player.name)
+                        player.skip_turn = False
+                        continue
+                
 
                 while True:
-                    print(
-                        f"Player turn: {player.name}, owns {player.cash} "
-                        f"and standing on position {player.position}"
-                    )
-
-                    action = input("Enter (e) to roll, (p) for game summary, or (q) to quit: ").strip().lower()
-
-                    if action == "p":
-                        self.summary()
-                        continue   
-
-                    elif action == "q":
-                        print(player.name, "Thank you for playing. Sad to see you go ):")
-                        return self.summary(), self.winner_announcement() 
-                                                
-                    
+                        print("--" * 6)
+                        print(
+                            f"Player turn: {player.name}, owns £{player.cash} "
+                            f"and standing on position {player.position}"
+                        )
                         
-                    elif action == "e":
-                        print("Rolling dice...")
-                        time.sleep(1.5)
-                        steps = Dice.roll()
-                        print(f"{player.name} got {steps}!")
-                        player.move(steps,self.Board.size())
+                        action = input("Enter (e) to roll, (p) for game summary, or (q) to quit: ").strip().lower()
 
-                        space = self.Board.get_location(player.position)
-                        space.activate(self,player)
+                        if action == "p":
+                            self.summary()
+                            continue   
 
-                        break     
-
-                    else:
-                        print("Please choose one of the following e, p, or q.")
+                        elif action == "q":
+                            print(player.name, "Thank you for playing. Sad to see you go ):")
+                            return self.summary(), self.winner_announcement() 
+                                                    
                         
-            
+                            
+                        elif action == "e":
+                            print("Rolling dice...")
+                            time.sleep(1.5)
+                            steps = Dice.roll()
+                            
+                            print(f"{player.name} got {steps}!")
+                            print("--" * 6)
+                            player.move(steps,self.Board.size())
+
+                            space = self.Board.get_location(player.position)
+                            space.activate(self,player)
+                            break     
+
+                        else:
+                            print("Please choose one of the following e, p, or q.")
+                        
+            if self.round >= self.max_rounds:
+                break
+
             if all(player.retired for player in self.players):
                 break
 

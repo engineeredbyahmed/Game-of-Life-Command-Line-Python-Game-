@@ -19,17 +19,16 @@ class Style:
     #Effects
     BOLD = "\033[1m"
     Underline = "\033[4m"
+
+    Reset = "\033[0m"
     
 
 
     @staticmethod
     def color_text(text, color):
-        return color + text + Style.Black
+        return color + text + Style.Reset
     
 
     
-
-
-print(Style.color_text("You profited 1000!", Style.B_White))
 
 
