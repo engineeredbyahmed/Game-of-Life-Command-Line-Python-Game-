@@ -108,5 +108,6 @@ class Retirement(Space):
 
     def activate(self, game, player):
         player.retire()
+        print(player.name,"You have officially retired!")
 
     

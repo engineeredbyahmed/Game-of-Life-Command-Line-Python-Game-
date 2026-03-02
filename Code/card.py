@@ -16,7 +16,6 @@ class Gift(Cards):
     def apply(self, player):
         print("Cash before:", player.cash)
         player.cash += self.amount 
-        print(Style.color_text(self.description,Style.Green))
         print("Cash after:", player.cash)
 
 
@@ -39,6 +38,7 @@ class Support(Cards):
     def apply(self, player):
         print("Cash before:", player.cash)
         player.cash += self.amount 
+
         print("Cash after:", player.cash)
 
 
@@ -49,7 +49,6 @@ class Jump(Cards):
 
     def apply(self, player):
         print("Position before:", player.position)
-        print(self.description)
         player.position += self.steps 
         print("Position after:", player.position)
 
@@ -71,5 +70,4 @@ class Skip_Turn(Cards):
 
     def apply(self, player):
         player.skip_turn = True
-        print(self.description)
-       
+        

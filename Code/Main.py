@@ -69,7 +69,7 @@ class GameOfLife:
             card.Support("Family Support (+500)", 500),
             card.Jump("You passed your exam. Move 2 extra steps", 2),
             card.Fall("You forgot to do laundry. Move 3 steps back" , 3),
-            card.Skip_Turn("is punished by forced to miss this turn")
+            card.Skip_Turn("You are punished by being forced to miss this turn")
         ]
 )
         self.cards.shuffle()
@@ -131,7 +131,7 @@ class GameOfLife:
         tie = False
         
 
-        for player in self.players:
+        for player in self.players[1:]:
             if player.balance() > winner.balance():
                 winner = player
                 tie = False
@@ -165,11 +165,10 @@ class GameOfLife:
 
             for player in self.players:
                 if player.retired:
-                        continue
+                    continue
 
                 if player.skip_turn:
                         print(player.name)
-                        player.skip_turn = False
                         continue
                 
 
