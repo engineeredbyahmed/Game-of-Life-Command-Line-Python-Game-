@@ -49,7 +49,6 @@ class Player:
     def balance(self):
         return self.cash
 
-p1 = Player('Ahmed')
 
 
 
