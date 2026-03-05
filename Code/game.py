@@ -187,7 +187,7 @@ class GameOfLife:
         space = self.Board.get_location(player.position)
         space.activate(self, player)
 
-    def _take_turn(self, player: Player) -> bool:
+    def take_turn(self, player: Player) -> bool:
         """
         Returns False if the game should end (player chose quit).
         Returns True if the game continues.
@@ -201,20 +201,20 @@ class GameOfLife:
             return True
 
         while True:
-            self._print_turn_status(player)
-            action = self._get_action()
+            self.print_turn_status(player)
+            action = self.get_action()
 
             if action == "p":
                 self.summary()
                 continue
 
             if action == "q":
-                self._handle_quit(player)
+                self.handle_quit(player)
                 return False
 
             if action == "e":
                 try:
-                    self._roll_move_activate(player)
+                    self.roll_move_activate(player)
                 except Exception as e:
                     print("Error: Something unexpected happened:", e)
                     continue

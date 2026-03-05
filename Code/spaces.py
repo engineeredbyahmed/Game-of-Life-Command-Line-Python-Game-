@@ -82,23 +82,26 @@ class Choice(Space):
         print("Pick (2) if you want to gain 400 now")
 
         while True:
-            option = input("Pick 1 or 2: ").strip()
-            if option == "1":
-                player.pay(600)
-                print(player.name, " just paid 600 to invest")
-                if random.random() < 0.5:
-                    player.earn(1000)
-                    print(player.name, Style.color_text("You profited 1000!", Style.Green))
+            try:
+                option = int(input("Pick 1 or 2: ").strip())
+                if option == "1":
+                    player.pay(600)
+                    print(player.name, " just paid 600 to invest")
+                    if random.random() < 0.5:
+                        player.earn(1000)
+                        print(player.name, Style.color_text("You profited 1000!", Style.Green))
+                        break
+                    else:
+                        print(player.name, Style.color_text("You just lost the 600 you invested", Style.Red))
+                        break
+                elif option == "2":
+                    player.earn(400)
+                    print(player.name, Style.color_text("You earned 400!", Style.Green))
                     break
                 else:
-                    print(player.name, Style.color_text("You just lost the 600 you invested", Style.Red))
-                    break
-            elif option == "2":
-                player.earn(400)
-                print(player.name, Style.color_text("You earned 400!", Style.Green))
-                break
-            else:
-                print(player.name, "Invalid input. Please choose 1 or 2")
+                    print(player.name, "Invalid input. Please choose 1 or 2")
+            except ValueError:
+                return ValueError ("Error: please enter a number 1 or 2")
 
 
 
