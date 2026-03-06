@@ -4,6 +4,9 @@ class Deck:
     def __init__(self, cards):
         self.cards = cards
 
+    def __len__(self):
+        return len(self.cards)
+
     def shuffle(self):
         random.shuffle(self.cards)
 

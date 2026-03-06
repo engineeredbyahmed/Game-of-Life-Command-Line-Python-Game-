@@ -115,10 +115,10 @@ class GameOfLife:
 # (1) game summary, (2) winner declaration, (3) loop for players signing up
 #---------------------------------------------------------------------------    
     def players_signup(self):
-        num_players = self._get_num_players()
+        num_players = self.get_num_players()
 
         for i in range(1, num_players + 1):
-            name = self._get_player_name(i)
+            name = self.get_player_name(i)
             self.players.append(Player(name))
 
         print("--" * 6)
@@ -233,7 +233,7 @@ class GameOfLife:
             print(f"\n--- Round {self.round} ---")
 
             for player in self.players:
-                if not self._take_turn(player):
+                if not self.take_turn(player):
                     return  
 
             if self.round >= self.max_rounds:
