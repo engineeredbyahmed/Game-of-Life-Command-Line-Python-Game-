@@ -87,6 +87,8 @@ class Choice(Space):
                 if option == 1:
                     player.pay(600)
                     print(player.name, " just paid 600 to invest")
+                    print("Investing in option trading for quick profit...")
+                    time.sleep(1.5)
                     if random.random() < 0.5:
                         player.earn(1000)
                         print(player.name, Style.color_text("You profited 1000!", Style.Green))

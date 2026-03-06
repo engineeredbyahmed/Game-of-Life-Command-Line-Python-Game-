@@ -66,8 +66,10 @@ class GameOfLife:
             spaces.Retirement()
         ])
 
+        
+
         self.cards = Deck([
-            card.Gift("Gift from best friend (+250)", 250),
+            card.Gift(Style.color_text("Gift from best friend (+250)", Style.Green), 250),
             card.Ticket("Speeding Ticket (-150)", 150),
             card.Support("Family Support (+500)", 500),
             card.Jump("You passed your exam. Move 2 extra steps", 2),
