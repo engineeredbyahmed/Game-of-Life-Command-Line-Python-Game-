@@ -67,14 +67,16 @@ class GameOfLife:
         ])
 
         
+        
+        
 
         self.cards = Deck([
             card.Gift(Style.color_text("Gift from best friend (+250)", Style.Green), 250),
-            card.Ticket("Speeding Ticket (-150)", 150),
-            card.Support("Family Support (+500)", 500),
-            card.Jump("You passed your exam. Move 2 extra steps", 2),
-            card.Fall("You forgot to do laundry. Move 3 steps back", 3),
-            card.Skip_Turn("You are punished by being forced to miss this turn")
+            card.Ticket(Style.color_text("Speeding Ticket (-150)", Style.Red), 150),
+            card.Support(Style.color_text("Family Support (+500)", Style.Green), 500),
+            card.Jump(Style.color_text("You passed your exam. Move 2 extra steps", Style.Green), 2),
+            card.Fall(Style.color_text("You forgot to do laundry. Move 3 steps back", Style.Red), 3),
+            card.Skip_Turn(Style.color_text("You are punished by being forced to miss this turn", Style.B_Red))
         ])
         self.cards.shuffle()
 
