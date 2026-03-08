@@ -12,12 +12,14 @@ I acknowledge the following uses of GenAI tools in this assessment:
 - [ ] proofread and correct grammar or spelling errors.
 - [ ] generate citations or references.
 - [*] Other: [please specify]
-I used ChatGBT to refractor the code to make it easier to understand. 
+I used ChatGBT to refractor the code to make it easier to understand.
+I used GenAI to find bugs and debug my code. 
 - [ ] I have not used any GenAI tools in preparing this assessment.
 I declare that I have referenced all use of GenAI outputs within my assessment in line with the
 University referencing guidelines.
 I certify that all material in this dissertation which is not my own has been identified.
 ________________________________ End of declaration _______________________________
+
 """
 
 from player import Player
