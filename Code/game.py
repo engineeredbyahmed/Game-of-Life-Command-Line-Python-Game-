@@ -99,11 +99,15 @@ class GameOfLife:
 
             print(f"Only from {self.MIN_PLAYERS} to {self.MAX_PLAYERS} players are allowed.")
 
+    def format_player_name(self, name: str) -> str:
+        return name.strip().capitalize()
+
     def get_player_name(self, i: int) -> str:
         while True:
-            name = input(f"Name for player {i}: ").strip().capitalize()
-            if name:
-                return name
+            name = input(f"Name for player {i}: ")
+            name_formatted= self.format_player_name(name)
+            if name_formatted:
+                return name_formatted
             print("Name cannot be empty.")
 
     def get_action(self) -> str:
