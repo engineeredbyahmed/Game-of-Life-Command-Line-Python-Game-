@@ -1,2 +1,7 @@
+alive_progress==3.3.0
+Faker==40.8.0
+halo==0.0.31
+pyfiglet==1.0.4
+pytest==8.4.2
 pytest==9.0.2
 tabulate==0.9.0

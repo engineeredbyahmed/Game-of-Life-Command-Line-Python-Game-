@@ -208,7 +208,7 @@ class GameOfLife:
         self.winner_announcement()
 
     def roll_move_activate(self, player: Player):
-        dice = Halo(text='Rolling dice...', spinner='dots', animation="bounce")
+        dice = Halo(text='Rolling dice...', spinner='dots')
         dice.start()
         time.sleep(1.5)
         dice.succeed("Dice rolled!")
