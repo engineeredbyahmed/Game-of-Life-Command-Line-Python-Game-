@@ -1,73 +1,105 @@
+
+"""
+________________________________ Start of declaration _______________________________
+I acknowledge the following uses of GenAI tools in this assessment:
+- [ ] I have used GenAI tools to:
+- [ ] develop ideas.
+- [ ] assist with research or gathering information.
+- [ ] help me understand key theories and concepts.
+- [ ] identify trends and themes as part of my data analysis
+- [ ] suggest a plan or structure for my assessment.
+- [ ] give me feedback on a draft.
+- [ ] generate images, figures or diagrams.
+- [ ] proofread and correct grammar or spelling errors.
+- [ ] generate citations or references.
+- [*] Other: [please specify]
+I used ChatGBT to refractor the code to make it easier to understand.
+- [ ] I have not used any GenAI tools in preparing this assessment.
+I declare that I have referenced all use of GenAI outputs within my assessment in line with the
+University referencing guidelines.
+I certify that all material in this dissertation which is not my own has been identified.
+________________________________ End of declaration _______________________________
+
+"""
+
+
+
 from Style import Style
 
-class Cards:
-    def __init__(self, description):
-        self.description = description  
 
-    def __str__(self):
-        return f"{self.description}"
+class Card:
+    """
+    This class containts base card class for all cards.
+    All other cards inherit from the base class. 
+
+    Methods:
+        __str__ : return card description
+        apply   : apply card effect to player
+    """
+
+    def __init__(self, description: str):
+        self.description = description
+
+    def __str__(self) -> str:
+        return self.description
+
+    def apply(self, player):
+        raise NotImplementedError("Subclasses must implement apply().")
 
 
-class Gift(Cards):
-    def __init__(self,description, amount):
+class CashCard(Card):
+    def __init__(self, description: str, amount: int):
         super().__init__(description)
         self.amount = amount
 
-    def apply(self, player):
+    def update_cash(self, player, change: int):
         print("Cash before:", player.cash)
-        player.cash += self.amount 
+        player.cash += change
+        print(self.description)
         print("Cash after:", player.cash)
 
 
-class Ticket(Cards):
-    def __init__(self,description, amount):
-        super().__init__(description)
-        self.amount = amount
-
-    def apply(self, player):
-        print("Cash before:", player.cash)
-        player.cash -= self.amount 
-        print(Style.color_text(self.description,Style.Red))
-        print("Cash after:", player.cash)
-
-class Support(Cards):
-    def __init__(self,description, amount):
-        super().__init__(description)
-        self.amount = amount
-
-    def apply(self, player):
-        print("Cash before:", player.cash)
-        player.cash += self.amount 
-
-        print("Cash after:", player.cash)
-
-
-class Jump(Cards):
-    def __init__(self,description, steps):
+class MoveCard(Card):
+    def __init__(self, description: str, steps: int):
         super().__init__(description)
         self.steps = steps
 
-    def apply(self, player):
+    def update_position(self, player, change: int):
         print("Position before:", player.position)
-        player.position += self.steps 
+        player.position += change
+        print(self.description)
         print("Position after:", player.position)
 
 
-class Fall(Cards):
-    def __init__(self,description, steps):
-        super().__init__(description)
-        self.steps = steps
-
+class Gift(CashCard):
     def apply(self, player):
-        print("Position before:", player.position)
-        player.position -= self.steps 
-        print("Position after:", player.position)
+        self.update_cash(player, self.amount)
 
-class Skip_Turn(Cards):
-    def __init__(self,description):
-        super().__init__(description)
-    
 
+class Ticket(CashCard):
+    def apply(self, player):
+        print(Style.color_text(self.description, Style.Red))
+        print("Cash before:", player.cash)
+        player.cash -= self.amount
+        print("Cash after:", player.cash)
+
+
+class Support(CashCard):
+    def apply(self, player):
+        self.update_cash(player, self.amount)
+
+
+class Jump(MoveCard):
+    def apply(self, player):
+        self.update_position(player, self.steps)
+
+
+class Fall(MoveCard):
+    def apply(self, player):
+        self.update_position(player, -self.steps)
+
+
+class SkipTurn(Card):
     def apply(self, player):
         player.skip_turn = True
-        
+        print(self.description)

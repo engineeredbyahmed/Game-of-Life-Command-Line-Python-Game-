@@ -22,6 +22,9 @@ ________________________________ End of declaration ____________________________
 
 """
 
+# ---------------------------------------------------------------------------
+# importing all classes to the game loop
+# ---------------------------------------------------------------------------
 from player import Player
 from dice import Dice
 import spaces
@@ -31,6 +34,9 @@ import card
 from Style import Style
 
 
+# ---------------------------------------------------------------------------
+# importing all libraries to the game loop
+# ---------------------------------------------------------------------------
 from alive_progress import alive_bar
 import time
 from tabulate import tabulate
@@ -84,9 +90,9 @@ class GameOfLife:
             card.Gift(Style.color_text("Gift from best friend (+250)", Style.Green), 250),
             card.Ticket(Style.color_text("Speeding Ticket (-150)", Style.Red), 150),
             card.Support(Style.color_text("Family Support (+500)", Style.Green), 500),
-            card.Jump(Style.color_text("You passed your exam. Move 2 extra steps", Style.Green), 2),
+            card.Jump(Style.color_text("You passed your programming with python exam. Move 2 extra steps", Style.Green), 2),
             card.Fall(Style.color_text("You forgot to do laundry. Move 3 steps back", Style.Red), 3),
-            card.Skip_Turn(Style.color_text("You are punished by being forced to miss this turn", Style.B_Red))
+            card.SkipTurn(Style.color_text("You are punished by being forced to miss this turn", Style.B_Red))
         ])
         self.cards.shuffle()
 
@@ -116,7 +122,7 @@ class GameOfLife:
     def get_player_name(self, i: int) -> str:
         while True:
             name = input(f"Name for player {i} or press F for a random name: ")
-            if name.strip() == "f":
+            if name.strip().lower() == "f":
                 random_name = fake.first_name()
                 print(f"Random name selected: {random_name}")
                 return random_name
@@ -227,7 +233,12 @@ class GameOfLife:
         Returns False if the game should end (player chose quit).
         Returns True if the game continues.
         """
+        INTEREST = 0.07
+
         if player.retired:
+            interest = int(player.cash * INTEREST)
+            player.cash += interest
+            print(player.name, "earned interest:", interest)
             return True
 
         if player.skip_turn:

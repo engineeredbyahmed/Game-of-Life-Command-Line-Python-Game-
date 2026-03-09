@@ -9,10 +9,12 @@ class Player:
         position        All players will start from 0
         salary          When players get paid
         retired         When players retire (bool)
+        skip_trun       When a player get punished (bool)
      Methods:
-        earn            updating the cash as player earns money
-        pay             updating the cash as player loses money
-        move            updating position as player moves
+        __str__         To make it easier to print the player's information
+        earn            Updating the cash as player earns money
+        pay             Updating the cash as player loses money
+        move            Updating position as player moves
 
     """
 

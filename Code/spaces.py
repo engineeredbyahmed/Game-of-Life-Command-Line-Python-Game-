@@ -58,18 +58,17 @@ class Empty(Space):
          super().__init__("Empty")
 
     def activate(self, game, player):
-        print(player.name, "Relax here")
+        print(player.name, "Nothing here. Just a moment to think about your life choices")
 
 class Event(Space):
     def __init__(self):
         super().__init__("Event")
 
     def activate(self, game, player):
-        print("--- Event Card ---")
+        print(Style.color_text("--- Event Space ---", Style.B_magenta))
         print("Picking a card...")
         time.sleep(1.5)
-        card = game.cards.draw()    
-        print(card)                 
+        card = game.cards.draw()                    
         card.apply(player)    
 
 class Choice(Space):
@@ -77,7 +76,7 @@ class Choice(Space):
         super().__init__("Choice")
 
     def activate(self, game, player):
-        print("--- Choice Space ---")
+        print(Style.color_text("--- Choice Space ---", Style.B_blue))
         print("Pick (1) if you want to invest in stocks (pay 600) with 50% chance to get 1000")
         print("Pick (2) if you want to gain 400 now")
 
@@ -114,6 +113,7 @@ class Retirement(Space):
 
     def activate(self, game, player):
         player.retire()
-        print(player.name,"You have officially retired!")
+        print(Style.color_text("You have officially retired!", Style.BOLD))
+        print(Style.color_text("You will gain 7% each round until other players finish", Style.Underline))
 
     

@@ -14,7 +14,8 @@ class Style:
     B_Red = "\x1b[41m"
     B_Green = "\x1b[42m"
     B_White = "\x1b[47m"
-
+    B_magenta = "\x1b[45m"
+    B_blue = "\x1b[44m"
 
     #Effects
     BOLD = "\033[1m"
