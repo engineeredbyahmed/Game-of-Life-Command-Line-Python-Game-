@@ -30,9 +30,17 @@ from deck import Deck
 import card
 from Style import Style
 
+
+from alive_progress import alive_bar
 import time
 from tabulate import tabulate
+import pyfiglet
+from faker import Faker
+from halo import Halo
 
+
+
+fake = Faker()
 
 class GameOfLife:
     MIN_PLAYERS = 2
@@ -82,6 +90,7 @@ class GameOfLife:
         ])
         self.cards.shuffle()
 
+
     # ---------------------------------------------------------------------------
     # User Input
     # This section include all usuer input for the game:
@@ -106,8 +115,14 @@ class GameOfLife:
 
     def get_player_name(self, i: int) -> str:
         while True:
-            name = input(f"Name for player {i}: ")
+            name = input(f"Name for player {i} or press F for a random name: ")
+            if name.strip() == "f":
+                random_name = fake.first_name()
+                print(f"Random name selected: {random_name}")
+                return random_name
+        
             name_formatted= self.format_player_name(name)
+
             if name_formatted:
                 return name_formatted
             print("Name cannot be empty.")
@@ -131,6 +146,12 @@ class GameOfLife:
             name = self.get_player_name(i)
             self.players.append(Player(name))
 
+        
+        with alive_bar(5) as bar:
+            print("Loading the game!")
+            for i in range(5):
+                time.sleep(0.5)
+                bar()
         print("--" * 6)
         print(Style.color_text("Welcome All to the Game Of Life!", Style.B_White))
         print("--" * 6)
@@ -166,8 +187,9 @@ class GameOfLife:
         if tie:
             print("It's a tie with cash:", winner.balance())
         else:
-            print("Winner:", winner.name, "with cash:", winner.balance())
-
+            print(pyfiglet.figlet_format("Winner"))
+            print(winner.name, "with cash:", winner.balance())
+            
 # ---------------------------------------------------------------------------
 # Turn logic
 # This section includes
@@ -186,7 +208,10 @@ class GameOfLife:
         self.winner_announcement()
 
     def roll_move_activate(self, player: Player):
-        print("Rolling dice...")
+        dice = Halo(text='Rolling dice...', spinner='dots', animation="bounce")
+        dice.start()
+        time.sleep(1.5)
+        dice.succeed("Dice rolled!")
         time.sleep(1.5)
         steps = Dice.roll()
 
@@ -219,6 +244,11 @@ class GameOfLife:
                 continue
 
             if action == "q":
+                with alive_bar(5) as bar:
+                    print("finishing the game...")
+                    for _ in range(5):
+                        time.sleep(0.5)
+                        bar()
                 self.handle_quit(player)
                 return False
 
@@ -240,7 +270,8 @@ class GameOfLife:
 
         while True:
             self.round += 1
-            print(f"\n--- Round {self.round} ---")
+
+            print(Style.color_text(f"\n--- Round {self.round} ---", Style.B_White))
 
             for player in self.players:
                 if not self.take_turn(player):
