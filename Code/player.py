@@ -22,7 +22,6 @@ class Player:
         self.name = name
         self.cash = 5000
         self.position = 0
-        self.salary = 0 
         self.skip_turn = False
         self.retired = False 
 

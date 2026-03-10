@@ -128,7 +128,7 @@ class GameOfLife:
                 return random_name
             
             if name == "":
-                print("Name cannot be empty. Please try again.")
+                print("Name cannot be empty. Please insert a name.")
                 continue
 
             name_formatted= self.format_player_name(name)
@@ -150,6 +150,7 @@ class GameOfLife:
 # (1) game summary, (2) winner declaration, (3) loop for players signing up
 #---------------------------------------------------------------------------    
     def players_signup(self):
+        #This will record all names of players and put them in a list alltogether 
         num_players = self.get_num_players()
 
         for i in range(1, num_players + 1):
@@ -169,6 +170,8 @@ class GameOfLife:
             print(p)
 
     def summary(self):
+        # Shows the total game smmary of the current round
+        # Used tabulate library to make stats more organized and clean
         print("------- Game Summary -------")
         print("Round:", self.round, "/", self.max_rounds)
         print("Board size:", self.Board.size())
@@ -184,18 +187,27 @@ class GameOfLife:
         print("----------------------------\n")
 
     def winner_announcement(self):
+
+        #Assumed the first player is always the winner to start with
+        #Sittign tie is false until told otherwise
         winner = self.players[0]
         tie = False
 
-        for player in self.players[1:]:
+        #Started comparing other players in loop while not counting the first place
+        # since the first player was already stated above
+        for player in self.players[1:]: 
             if player.balance() > winner.balance():
                 winner = player
                 tie = False
             elif player.balance() == winner.balance():
                 tie = True
 
+        # This will print whenever two or more players have the same balance
         if tie:
             print("It's a tie with cash:", winner.balance())
+        
+        # This will print the winner with the highest cash
+        # Using pyfiglet for fun text effect
         else:
             print(pyfiglet.figlet_format("Winner"))
             print(winner.name, "with cash:", winner.balance())
@@ -218,6 +230,9 @@ class GameOfLife:
         self.winner_announcement()
 
     def roll_move_activate(self, player: Player):
+        # Used Halo lirbrary for fun effects 
+        # I made the Dice as a static method
+        # because the player will only use one dice the whole game
         dice = Halo(text='Rolling dice...', spinner='dots')
         dice.start()
         time.sleep(1.5)
@@ -228,6 +243,8 @@ class GameOfLife:
         print(f"{player.name} got {steps}!")
         print("--" * 6)
 
+        # The move method takes the steps and board size as inputs and returns player position
+        # Space activation to apply effect on the player
         player.move(steps, self.Board.size())
         space = self.Board.get_location(player.position)
         space.activate(self, player)
@@ -237,14 +254,18 @@ class GameOfLife:
         Returns False if the game should end (player chose quit).
         Returns True if the game continues.
         """
-        INTEREST = 0.07
+        INTEREST = 0.07 # Defined the interest rate 
 
+        # Each round retried players earn interest on their total cash
+        # It returns True for the game to continue
         if player.retired:
             interest = int(player.cash * INTEREST)
             player.cash += interest
             print(player.name, "earned interest:", interest)
             return True
 
+        # important: reseting the skip turn to False
+        # This makes the player skips one turn only
         if player.skip_turn:
             print(player.name, "is skipping this turn.")
             player.skip_turn = False
@@ -254,10 +275,14 @@ class GameOfLife:
             self.print_turn_status(player)
             action = self.get_action()
 
+            # Using "continue" to go back to the top of the loop
+            # everytime p is pressed 
             if action == "p":
                 self.summary()
-                continue
+                continue 
 
+            # Used a fun library to show some bars moving
+            # it returns False in order to exit the game. 
             if action == "q":
                 with alive_bar(5) as bar:
                     print("finishing the game...")
@@ -267,6 +292,8 @@ class GameOfLife:
                 self.handle_quit(player)
                 return False
 
+            # This runs the round loops
+            # It reuterns True to continue the game
             if action == "e":
                 try:
                     self.roll_move_activate(player)
@@ -284,19 +311,26 @@ class GameOfLife:
         self.players_signup()
 
         while True:
+            # to increase one round each loop
             self.round += 1
 
             print(Style.color_text(f"\n--- Round {self.round} ---", Style.B_White))
 
-            for player in self.players:
-                if not self.take_turn(player):
+            # to give a round for each player
+            # any player return False, the game exits straight away  
+            for player in self.players:  
+                if not self.take_turn(player): 
                     return  
-
+                
+            #The game finishes by these conditions below
             if self.round >= self.max_rounds:
                 break
+            # (1) When all 25 rounds finish
+            # The game ends even if no one retired
 
             if all(p.retired for p in self.players):
                 break
+            # (2) When all players retire by reaching the end of the board
 
         print("------- Game Over -------")
         self.summary()
