@@ -126,7 +126,11 @@ class GameOfLife:
                 random_name = fake.first_name()
                 print(f"Random name selected: {random_name}")
                 return random_name
-        
+            
+            if name == "":
+                print("Name cannot be empty. Please try again.")
+                continue
+
             name_formatted= self.format_player_name(name)
 
             if name_formatted:
