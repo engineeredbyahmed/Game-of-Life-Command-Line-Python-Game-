@@ -43,7 +43,7 @@ from tabulate import tabulate
 import pyfiglet
 from faker import Faker
 from halo import Halo
-
+import sphinx
 
 
 fake = Faker()
@@ -51,7 +51,7 @@ fake = Faker()
 class GameOfLife:
     MIN_PLAYERS = 2
     MAX_PLAYERS = 6
-    ACTIONS = ("e", "p", "q")
+    ACTIONS = ("e", "p", "q", "h")
 
     def __init__(self):
         self.players = []
@@ -140,10 +140,10 @@ class GameOfLife:
 
     def get_action(self) -> str:
         while True:
-            action = input("Enter (e) to roll, (p) for game summary, or (q) to quit: ").strip().lower()
+            action = input("Enter (e) to roll, (p) for game summary, (h) to show game history, or (q) to quit: ").strip().lower()
             if action in self.ACTIONS:
                 return action
-            print("Please choose one of the following: e, p, or q.")
+            print("Please choose one of the following: e, p, h, or q.")
 
 # ---------------------------------------------------------------------------
 # Game initiation and termination
@@ -214,8 +214,17 @@ class GameOfLife:
             print(winner.name, "with cash:", winner.balance())
 
 
-        def record_history(self,incident):
-            self.history.append(incident)
+    def record_history(self,incident):
+        self.history.append(incident)
+
+    def show_history(self):
+        print("------- Game History ------")
+
+        if not self.history:
+            print("No incidents yet.")
+            return
+        for incident in self.history:
+            print(incident)
             
 # ---------------------------------------------------------------------------
 # Turn logic
@@ -244,10 +253,10 @@ class GameOfLife:
         dice.succeed("Dice rolled!")
         time.sleep(1.5)
         steps = Dice.roll()
-        self.record_history(
+        
 
         print(f"{player.name} got {steps}!")
-        self.record_history(f"{player.name} got {steps}!")
+        self.record_history(f"Round {self.round}: {player.name} got {steps}!")
         print("--" * 6)
 
         # The move method takes the steps and board size as inputs and returns player position
@@ -269,7 +278,7 @@ class GameOfLife:
             interest = int(player.cash * INTEREST)
             player.cash += interest
             print(player.name, "earned interest:", interest)
-            self.record_history(player.name, "earned interest:", interest)
+            self.record_history(f"Round {self.round}: {player.name} earned interest: {interest}")
             return True
 
         # important: reseting the skip turn to False
@@ -301,8 +310,8 @@ class GameOfLife:
                 return False
 
             if action == "h":
-            self.record_history
-            continue
+                self.show_history()
+                continue
 
             # This runs the round loops
             # It reuterns True to continue the game

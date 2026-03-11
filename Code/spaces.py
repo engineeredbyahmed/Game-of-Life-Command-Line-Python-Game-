@@ -42,6 +42,7 @@ class Payday(Space):
         player.earn(1000)
         #print(player.name, "it is payday!. You earned 1000!")
         print(player.name, Style.color_text("it is payday!. You earned 1000!", Style.Green))
+        game.record_history(f"Round {game.round}: {player.name} earned 1000!")
 
 class Taxpay(Space):
     def __init__(self):
@@ -50,6 +51,7 @@ class Taxpay(Space):
     def activate(self, game, player):
         player.pay(500)
         print(player.name, Style.color_text("You have to pay taxes. 500 is taken from you.", Style.Red))
+        game.record_history(f"Round {game.round}: {player.name} lost 500 to pay taxes")
 
         
 
@@ -59,6 +61,7 @@ class Empty(Space):
 
     def activate(self, game, player):
         print(player.name, "Nothing here. Just a moment to think about your life choices")
+        game.record_history(f"Round {game.round}: {player.name} stepped on an empty space")
 
 class Event(Space):
     def __init__(self):
@@ -68,8 +71,10 @@ class Event(Space):
         print(Style.color_text("--- Event Space ---", Style.B_magenta))
         print("Picking a card...")
         time.sleep(1.5)
+        game.record_history(f"Round {game.round}: {player.name} got an event card")
         card = game.cards.draw()                    
-        card.apply(player)    
+        card.apply(player, game)
+        
 
 class Choice(Space):
     def __init__(self):
@@ -91,13 +96,16 @@ class Choice(Space):
                     if random.random() < 0.5:
                         player.earn(1000)
                         print(player.name, Style.color_text("You profited 1000!", Style.Green))
+                        game.record_history(f"Round {game.round}: {player.name} chose to invest and profited 1000")
                         break
                     else:
                         print(player.name, Style.color_text("You just lost the 600 you invested", Style.Red))
+                        game.record_history(f"Round {game.round}: {player.name} chose to invest and lost 600")
                         break
                 elif option == 2:
                     player.earn(400)
                     print(player.name, Style.color_text("You earned 400!", Style.Green))
+                    game.record_history(f"Round {game.round}: {player.name} chose to earn 400 without investing")
                     break
                 else:
                     print(player.name, "Invalid input. Please choose 1 or 2")
@@ -114,6 +122,7 @@ class Retirement(Space):
     def activate(self, game, player):
         player.retire()
         print(Style.color_text("You have officially retired!", Style.BOLD))
+        game.record_history(f"Round {game.round}: {player.name} has officially retired")
         print(Style.color_text("You will gain 7% each round until other players finish", Style.Underline))
 
     

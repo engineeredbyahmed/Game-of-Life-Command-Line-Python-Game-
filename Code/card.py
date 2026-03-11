@@ -72,34 +72,40 @@ class MoveCard(Card):
 
 
 class Gift(CashCard):
-    def apply(self, player):
+    def apply(self, player, game):
         self.update_cash(player, self.amount)
+        game.record_history(f"Round {game.round}: {player.name} got a gift from their best friend (+250)")
 
 
 class Ticket(CashCard):
-    def apply(self, player):
+    def apply(self, player, game):
         print(Style.color_text(self.description, Style.Red))
         print("Cash before:", player.cash)
         player.cash -= self.amount
         print("Cash after:", player.cash)
+        game.record_history(f"Round {game.round}: {player.name} got a speeding Ticket (-150)")
 
 
 class Support(CashCard):
-    def apply(self, player):
+    def apply(self, player, game):
         self.update_cash(player, self.amount)
+        game.record_history(f"Round {game.round}: {player.name} got a family Support (+500)")
 
 
 class Jump(MoveCard):
-    def apply(self, player):
+    def apply(self, player, game):
         self.update_position(player, self.steps)
+        game.record_history(f"Round {game.round}: {player.name}  passed their programming with python exam. Moved 2 steps forward")
 
 
 class Fall(MoveCard):
-    def apply(self, player):
+    def apply(self, player, game):
         self.update_position(player, -self.steps)
+        game.record_history(f"Round {game.round}: {player.name} forgot to do laundry. Moved 3 steps backward")
 
 
 class SkipTurn(Card):
-    def apply(self, player):
+    def apply(self, player, game):
         player.skip_turn = True
         print(self.description)
+        game.record_history(f"Round {game.round}: {player.name} punished by being forced to miss this turn")
