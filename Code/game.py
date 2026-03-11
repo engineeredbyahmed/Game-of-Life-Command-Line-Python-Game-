@@ -57,6 +57,7 @@ class GameOfLife:
         self.players = []
         self.round = 0
         self.max_rounds = 25
+        self.history = []
 
         self.Board = Board([
             spaces.Start(),
@@ -211,6 +212,10 @@ class GameOfLife:
         else:
             print(pyfiglet.figlet_format("Winner"))
             print(winner.name, "with cash:", winner.balance())
+
+
+        def record_history(self,incident):
+            self.history.append(incident)
             
 # ---------------------------------------------------------------------------
 # Turn logic
@@ -239,8 +244,10 @@ class GameOfLife:
         dice.succeed("Dice rolled!")
         time.sleep(1.5)
         steps = Dice.roll()
+        self.record_history(
 
         print(f"{player.name} got {steps}!")
+        self.record_history(f"{player.name} got {steps}!")
         print("--" * 6)
 
         # The move method takes the steps and board size as inputs and returns player position
@@ -262,6 +269,7 @@ class GameOfLife:
             interest = int(player.cash * INTEREST)
             player.cash += interest
             print(player.name, "earned interest:", interest)
+            self.record_history(player.name, "earned interest:", interest)
             return True
 
         # important: reseting the skip turn to False
@@ -291,6 +299,10 @@ class GameOfLife:
                         bar()
                 self.handle_quit(player)
                 return False
+
+            if action == "h":
+            self.record_history
+            continue
 
             # This runs the round loops
             # It reuterns True to continue the game
