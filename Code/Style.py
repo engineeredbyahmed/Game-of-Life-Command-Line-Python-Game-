@@ -1,4 +1,18 @@
 class Style:
+    """
+    This class containts all text styles 
+    that I used in my main game loop.
+    All other cards inherit from the base class. 
+
+     Methods:
+    @staticmethod   
+
+    The reason for this design choice:
+
+    (1) to call the method of the class without
+    creating an instance of the class 
+    
+    """
     #Colors
     Black = "\x1b[30m"
     Red = "\x1b[31m"

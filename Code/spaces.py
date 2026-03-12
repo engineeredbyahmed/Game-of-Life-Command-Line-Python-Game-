@@ -27,6 +27,8 @@ class Space:
 
     
 class Start(Space):
+    """ The space where all players start."""
+
     def __init__(self):
         super().__init__("Start")
 
@@ -35,16 +37,17 @@ class Start(Space):
 
 
 class Payday(Space):
+    """The player receives 1000 when stepping on Payday space."""
     def __init__(self):
         super().__init__("Payday")
 
     def activate(self, game, player):
         player.earn(1000)
-        #print(player.name, "it is payday!. You earned 1000!")
         print(player.name, Style.color_text("it is payday!. You earned 1000!", Style.Green))
         game.record_history(f"Round {game.round}: {player.name} earned 1000!")
 
 class Taxpay(Space):
+    """The player pays 500 when stepping on Taxpay space."""
     def __init__(self):
         super().__init__("Taxpay")
 
@@ -56,6 +59,7 @@ class Taxpay(Space):
         
 
 class Empty(Space):
+    """The player does not not get or give anything on the empty space."""
     def __init__(self):
          super().__init__("Empty")
 
@@ -64,6 +68,7 @@ class Empty(Space):
         game.record_history(f"Round {game.round}: {player.name} stepped on an empty space")
 
 class Event(Space):
+    """The player gets an event card picked up randomly on the event space."""
     def __init__(self):
         super().__init__("Event")
 
@@ -77,6 +82,7 @@ class Event(Space):
         
 
 class Choice(Space):
+    """The player get to choose to take risk to invest or receive quick cash."""
     def __init__(self):
         super().__init__("Choice")
 
@@ -116,6 +122,7 @@ class Choice(Space):
 
 
 class Retirement(Space):
+    """The player retires when reaching the retirement space at the end of board."""
     def __init__(self):
         super().__init__("Retirement")
 
