@@ -1,5 +1,5 @@
 
-# Game of Life (Command-Line Pyth Game)
+# Game of Life (Command-Line Python Game)
 
 This project is a Python implementation of a simplified board game inspired by *The Game of Life*.  
 The game allows 2 to 6 players to move across a board, draw cards, and interact with different spaces until the game ends and a winner is determined based on their final balance.
