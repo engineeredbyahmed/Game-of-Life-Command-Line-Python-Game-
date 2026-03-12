@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>card module &#8212; Game of Life 1.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=8d563738"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="deck module" href="deck.html" />
+    <link rel="prev" title="board module" href="board.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-card">
+<span id="card-module"></span><h1>card module<a class="headerlink" href="#module-card" title="Link to this heading">¶</a></h1>
+<p>________________________________ Start of declaration _______________________________
+I acknowledge the following uses of GenAI tools in this assessment:
+- [ ] I have used GenAI tools to:
+- [ ] develop ideas.
+- [ ] assist with research or gathering information.
+- [ ] help me understand key theories and concepts.
+- [ ] identify trends and themes as part of my data analysis
+- [ ] suggest a plan or structure for my assessment.
+- [ ] give me feedback on a draft.
+- [ ] generate images, figures or diagrams.
+- [ ] proofread and correct grammar or spelling errors.
+- [ ] generate citations or references.
+- [*] Other: [please specify]
+I used ChatGBT to refractor the code to make it easier to understand.
+- [ ] I have not used any GenAI tools in preparing this assessment.
+I declare that I have referenced all use of GenAI outputs within my assessment in line with the
+University referencing guidelines.
+I certify that all material in this dissertation which is not my own has been identified.
+________________________________ End of declaration _______________________________</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="card.Card">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">card.</span></span><span class="sig-name descname"><span class="pre">Card</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#card.Card" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class containts base card class for all cards.
+All other cards inherit from the base class.</p>
+<dl class="simple">
+<dt>Methods:</dt><dd><p>__str__ : return card description
+apply   : apply card effect to player</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="card.Card.apply">
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#card.Card.apply" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="card.CashCard">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">card.</span></span><span class="sig-name descname"><span class="pre">CashCard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#card.CashCard" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#card.Card" title="card.Card"><code class="xref py py-class docutils literal notranslate"><span class="pre">Card</span></code></a></p>
+<p>The parent class when receiving or losing cash.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="card.CashCard.update_cash">
+<span class="sig-name descname"><span class="pre">update_cash</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">change</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#card.CashCard.update_cash" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="card.Fall">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">card.</span></span><span class="sig-name descname"><span class="pre">Fall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#card.Fall" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#card.MoveCard" title="card.MoveCard"><code class="xref py py-class docutils literal notranslate"><span class="pre">MoveCard</span></code></a></p>
+<p>The child class when moving backward.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="card.Fall.apply">
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">game</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#card.Fall.apply" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="card.Gift">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">card.</span></span><span class="sig-name descname"><span class="pre">Gift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#card.Gift" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#card.CashCard" title="card.CashCard"><code class="xref py py-class docutils literal notranslate"><span class="pre">CashCard</span></code></a></p>
+<p>The child class when receiving cash.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="card.Gift.apply">
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">game</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#card.Gift.apply" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="card.Jump">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">card.</span></span><span class="sig-name descname"><span class="pre">Jump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#card.Jump" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#card.MoveCard" title="card.MoveCard"><code class="xref py py-class docutils literal notranslate"><span class="pre">MoveCard</span></code></a></p>
+<p>The child class when moving forward.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="card.Jump.apply">
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">game</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#card.Jump.apply" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="card.MoveCard">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">card.</span></span><span class="sig-name descname"><span class="pre">MoveCard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#card.MoveCard" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#card.Card" title="card.Card"><code class="xref py py-class docutils literal notranslate"><span class="pre">Card</span></code></a></p>
+<p>The parent class when getting a card that moves the
+player forward or backward.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="card.MoveCard.update_position">
+<span class="sig-name descname"><span class="pre">update_position</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">change</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#card.MoveCard.update_position" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="card.SkipTurn">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">card.</span></span><span class="sig-name descname"><span class="pre">SkipTurn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#card.SkipTurn" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#card.Card" title="card.Card"><code class="xref py py-class docutils literal notranslate"><span class="pre">Card</span></code></a></p>
+<p>The class when a player is forced to skip one turn.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="card.SkipTurn.apply">
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">game</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#card.SkipTurn.apply" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="card.Support">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">card.</span></span><span class="sig-name descname"><span class="pre">Support</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#card.Support" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#card.CashCard" title="card.CashCard"><code class="xref py py-class docutils literal notranslate"><span class="pre">CashCard</span></code></a></p>
+<p>The child class when receiving cash as well.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="card.Support.apply">
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">game</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#card.Support.apply" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="card.Ticket">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">card.</span></span><span class="sig-name descname"><span class="pre">Ticket</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#card.Ticket" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#card.CashCard" title="card.CashCard"><code class="xref py py-class docutils literal notranslate"><span class="pre">CashCard</span></code></a></p>
+<p>The child class when losing cash.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="card.Ticket.apply">
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">game</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#card.Ticket.apply" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Game of Life</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Code</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Style.html">Style module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="board.html">board module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">card module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deck.html">deck module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dice.html">dice module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="game.html">game module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="player.html">player module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="spaces.html">spaces module</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">Code</a><ul>
+      <li>Previous: <a href="board.html" title="previous chapter">board module</a></li>
+      <li>Next: <a href="deck.html" title="next chapter">deck module</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2026, Ahmed Al Dulaim.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/card.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
