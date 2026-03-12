@@ -48,6 +48,7 @@ class Card:
 
 
 class CashCard(Card):
+    """The parent class when receiving or losing cash."""
     def __init__(self, description: str, amount: int):
         super().__init__(description)
         self.amount = amount
@@ -60,6 +61,10 @@ class CashCard(Card):
 
 
 class MoveCard(Card):
+    """
+    The parent class when getting a card that moves the
+    player forward or backward.
+    """
     def __init__(self, description: str, steps: int):
         super().__init__(description)
         self.steps = steps
@@ -72,12 +77,14 @@ class MoveCard(Card):
 
 
 class Gift(CashCard):
+    """ The child class when receiving cash."""
     def apply(self, player, game):
         self.update_cash(player, self.amount)
         game.record_history(f"Round {game.round}: {player.name} got a gift from their best friend (+250)")
 
 
 class Ticket(CashCard):
+    """ The child class when losing cash."""
     def apply(self, player, game):
         print(Style.color_text(self.description, Style.Red))
         print("Cash before:", player.cash)
@@ -87,24 +94,28 @@ class Ticket(CashCard):
 
 
 class Support(CashCard):
+    """ The child class when receiving cash as well."""
     def apply(self, player, game):
         self.update_cash(player, self.amount)
         game.record_history(f"Round {game.round}: {player.name} got a family Support (+500)")
 
 
 class Jump(MoveCard):
+    """ The child class when moving forward."""
     def apply(self, player, game):
         self.update_position(player, self.steps)
         game.record_history(f"Round {game.round}: {player.name}  passed their programming with python exam. Moved 2 steps forward")
 
 
 class Fall(MoveCard):
+    """ The child class when moving backward."""
     def apply(self, player, game):
         self.update_position(player, -self.steps)
         game.record_history(f"Round {game.round}: {player.name} forgot to do laundry. Moved 3 steps backward")
 
 
 class SkipTurn(Card):
+    """ The class when a player is forced to skip one turn."""
     def apply(self, player, game):
         player.skip_turn = True
         print(self.description)

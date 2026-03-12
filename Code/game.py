@@ -14,6 +14,7 @@ I acknowledge the following uses of GenAI tools in this assessment:
 - [*] Other: [please specify]
 I used ChatGBT to refractor the code to make it easier to understand.
 I used GenAI to find bugs and debug my code. 
+I used PlantUML to generate a UML Diagram that shows how classes relate to each other.
 - [ ] I have not used any GenAI tools in preparing this assessment.
 I declare that I have referenced all use of GenAI outputs within my assessment in line with the
 University referencing guidelines.
@@ -49,11 +50,27 @@ import sphinx
 fake = Faker()
 
 class GameOfLife:
+
+
+    """
+    This class contains the whole game loop.
+
+    it connects the players, board, spaces deck, cards, stylesrounds, user input,
+    player turn, and declaring a winner.
+    """
+
+
     MIN_PLAYERS = 2
     MAX_PLAYERS = 6
     ACTIONS = ("e", "p", "q", "h")
 
     def __init__(self):
+        """
+        to initialize the game.
+
+        it creates the player list, rounds, game history,
+        board spaces, and it shuffles the cards deck.
+        """
         self.players = []
         self.round = 0
         self.max_rounds = 25
@@ -104,6 +121,9 @@ class GameOfLife:
     # (1) Number of players, (2) Name of PLayers, (3) Action during each game round
     # ---------------------------------------------------------------------------
     def get_num_players(self) -> int:
+        """
+        To get the number of players from the user.
+        """
         while True:
             raw = input(f"How many people are playing today? ({self.MIN_PLAYERS}-{self.MAX_PLAYERS} players): ").strip()
             try:
@@ -118,9 +138,22 @@ class GameOfLife:
             print(f"Only from {self.MIN_PLAYERS} to {self.MAX_PLAYERS} players are allowed.")
 
     def format_player_name(self, name: str) -> str:
+
+        """
+        To format and standardize the player's name.
+
+        Args:
+        name (str): The name entered by the user.
+
+        Returns:
+        str: The name with no extra space and first letter capitalized.
+        """
         return name.strip().capitalize()
 
     def get_player_name(self, i: int) -> str:
+        """
+        To get the name of players from the user.
+        """
         while True:
             name = input(f"Name for player {i} or press F for a random name: ")
             if name.strip().lower() == "f":
@@ -139,6 +172,9 @@ class GameOfLife:
             print("Name cannot be empty.")
 
     def get_action(self) -> str:
+        """
+        To get the action from the player.
+    """
         while True:
             action = input("Enter (e) to roll, (p) for game summary, (h) to show game history, or (q) to quit: ").strip().lower()
             if action in self.ACTIONS:
@@ -151,7 +187,10 @@ class GameOfLife:
 # (1) game summary, (2) winner declaration, (3) loop for players signing up
 #---------------------------------------------------------------------------    
     def players_signup(self):
-        #This will record all names of players and put them in a list alltogether 
+        """
+        To record all names of players and put them in a list alltogether.
+        To show fun animation of the game loading.
+        """
         num_players = self.get_num_players()
 
         for i in range(1, num_players + 1):
@@ -171,8 +210,12 @@ class GameOfLife:
             print(p)
 
     def summary(self):
-        # Shows the total game smmary of the current round
-        # Used tabulate library to make stats more organized and clean
+        """
+        Shows the total game smmary of the current round
+        (player name, cash, current postion, status)
+        Used tabulate library to make stats more organized and clean
+        """
+
         print("------- Game Summary -------")
         print("Round:", self.round, "/", self.max_rounds)
         print("Board size:", self.Board.size())
@@ -188,6 +231,14 @@ class GameOfLife:
         print("----------------------------\n")
 
     def winner_announcement(self):
+
+        """
+        To declare the winner of the game.
+
+        The player with highest cash is declared winner of the game.
+        If two players have the same cash, the game announces is is
+        a tie between them.
+        """
 
         #Assumed the first player is always the winner to start with
         #Sittign tie is false until told otherwise
@@ -215,9 +266,15 @@ class GameOfLife:
 
 
     def record_history(self,incident):
+        """
+        To record all history of the game each single round. 
+        """
         self.history.append(incident)
 
     def show_history(self):
+        """
+        To display the history.
+        """
         print("------- Game History ------")
 
         if not self.history:
@@ -232,6 +289,9 @@ class GameOfLife:
 # (1) players status, (2) quitting the game, (3) rolling the dice (4) skip turn
 # ---------------------------------------------------------------------------
     def print_turn_status(self, player: Player):
+        """
+        To display the player's stats each round.
+        """
         print("--" * 6)
         print(
             f"Player turn: {player.name}, owns £{player.cash} "
@@ -239,11 +299,20 @@ class GameOfLife:
         )
 
     def handle_quit(self, player: Player):
+        """
+        if a player chooses (q) the game is terminated.
+        to show game summary of the game and declare winner immediatel. 
+        """
         print(player.name, "Thank you for playing. Sad to see you go ):")
         self.summary()
         self.winner_announcement()
 
     def roll_move_activate(self, player: Player):
+        """
+        To roll the dice, move the player, and activate 
+        the space where a player lands on.
+        """ 
+
         # Used Halo lirbrary for fun effects 
         # I made the Dice as a static method
         # because the player will only use one dice the whole game
@@ -267,6 +336,10 @@ class GameOfLife:
 
     def take_turn(self, player: Player) -> bool:
         """
+        To execute a full game round.
+        Retired players gain interest.
+        Punished players get to miss the current trun.
+
         Returns False if the game should end (player chose quit).
         Returns True if the game continues.
         """
@@ -329,6 +402,14 @@ class GameOfLife:
     # The game is terminated by either finishing the full 25 turns or quitting
     # ---------------------------------------------------------------------------
     def Play(self):
+        """
+        The first stage of game.
+
+        The game ends on either by
+        (1) Reaching maximum rounds.
+        (2) When all players retire.
+         """
+        
         self.players_signup()
 
         while True:
