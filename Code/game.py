@@ -45,9 +45,11 @@ import pyfiglet
 from faker import Faker
 from halo import Halo
 import sphinx
-
+import random
+import pyjokes
 
 fake = Faker()
+
 
 class GameOfLife:
 
@@ -62,7 +64,7 @@ class GameOfLife:
 
     MIN_PLAYERS = 2
     MAX_PLAYERS = 6
-    ACTIONS = ("e", "p", "q", "h")
+    ACTIONS = ("r", "p", "q", "h")
 
     def __init__(self):
         """
@@ -75,6 +77,8 @@ class GameOfLife:
         self.round = 0
         self.max_rounds = 25
         self.history = []
+        self.jokes = pyjokes.get_jokes()
+        random.shuffle(self.jokes)
 
         self.Board = Board([
             spaces.Start(),
@@ -114,6 +118,11 @@ class GameOfLife:
         ])
         self.cards.shuffle()
 
+    def get_next_joke(self):
+        if not self.jokes:
+            self.jokes = pyjokes.get_jokes()
+            random.shuffle(self.jokes)
+        return self.jokes.pop()
 
     # ---------------------------------------------------------------------------
     # User Input
@@ -174,12 +183,12 @@ class GameOfLife:
     def get_action(self) -> str:
         """
         To get the action from the player.
-    """
+        """
         while True:
-            action = input("Enter (e) to roll, (p) for game summary, (h) to show game history, or (q) to quit: ").strip().lower()
+            action = input("Enter (r) to roll, (p) for game summary, (h) to show game history, or (q) to quit: ").strip().lower()
             if action in self.ACTIONS:
                 return action
-            print("Please choose one of the following: e, p, h, or q.")
+            print("Please choose one of the following: r, p, h, or q.")
 
 # ---------------------------------------------------------------------------
 # Game initiation and termination
@@ -387,8 +396,8 @@ class GameOfLife:
                 continue
 
             # This runs the round loops
-            # It reuterns True to continue the game
-            if action == "e":
+            # It returns True to continue the game
+            if action == "r":
                 try:
                     self.roll_move_activate(player)
                 except Exception as e:
