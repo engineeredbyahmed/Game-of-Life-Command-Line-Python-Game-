@@ -1,10 +1,11 @@
 class Style:
+    
     """
     This class containts all text styles 
     that I used in my main game loop.
     All other cards inherit from the base class. 
 
-     Methods:
+    Methods:
     @staticmethod   
 
     The reason for this design choice:

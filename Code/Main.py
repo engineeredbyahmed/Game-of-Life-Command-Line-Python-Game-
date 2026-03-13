@@ -9,8 +9,8 @@ It uses Play() method to start the ga2me.
 from game import GameOfLife
 
 
-def main():
-    """to start the game."""
+
+if __name__ == "__main__":
     game = GameOfLife()
     game.Play()
 
@@ -19,5 +19,6 @@ def main():
     Added this condition so the game
     does not start when making the html file
     """
-if __name__ == "__main__":
-    main()
+
+
+   
