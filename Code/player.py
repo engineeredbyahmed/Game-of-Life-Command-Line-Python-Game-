@@ -24,6 +24,15 @@ class Player:
         self.position = 0
         self.skip_turn = False
         self.retired = False 
+        self.space_visits = {
+            "Start": 0,
+            "Payday": 0,
+            "Taxpay": 0,
+            "Empty": 0,
+            "Event": 0,
+            "Choice": 0,
+            "Retirement": 0,
+            }
 
     def __str__(self):
         return f"{self.name}"

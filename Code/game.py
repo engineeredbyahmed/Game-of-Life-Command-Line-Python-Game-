@@ -230,13 +230,30 @@ class GameOfLife:
         print("Board size:", self.Board.size())
         print()
 
-        table_data = []
+        table_data1 = []
         for player in self.players:
             status = "Retired" if player.retired else "Playing"
-            table_data.append([player.name, player.cash, player.position, status])
+            table_data1.append([player.name, player.cash, player.position, status])
 
-        headers = ["Player", "Cash", "Position", "Status"]
-        print(tabulate(table_data, headers=headers, tablefmt="fancy_grid"))
+        headers1 = ["Player", "Cash", "Position", "Status"]
+        print(tabulate(table_data1, headers=headers1, tablefmt="fancy_grid"))
+
+        table_data2 = []
+        for player in self.players:
+            row = [player.name]
+
+            for space in ["Payday", "Taxpay", "Empty", "Event", "Choice"]:
+                row.append(player.space_visits[space])
+
+            table_data2.append(row)
+
+        headers2 = ["Player", "Payday", "Taxpay", "Empty", "Event", "Choice"]
+
+
+        print("Space Visit Summary")
+        print(tabulate(table_data2, headers=headers2, tablefmt="fancy_grid"))
+
+            
         print("----------------------------\n")
 
     def winner_announcement(self):
@@ -341,6 +358,8 @@ class GameOfLife:
         # Space activation to apply effect on the player
         player.move(steps, self.Board.size())
         space = self.Board.get_location(player.position)
+        space_type = space.name
+        player.space_visits[space_type] += 1
         space.activate(self, player)
 
     def take_turn(self, player: Player) -> bool:

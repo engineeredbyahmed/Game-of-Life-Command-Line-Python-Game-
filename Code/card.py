@@ -69,9 +69,9 @@ class MoveCard(Card):
         super().__init__(description)
         self.steps = steps
 
-    def update_position(self, player, change: int):
+    def update_position(self, player, change: int, game):
         print("Position before:", player.position)
-        player.position += change
+        player.move(change, game.Board.size())
         print(self.description)
         print("Position after:", player.position)
 
@@ -103,14 +103,14 @@ class Support(CashCard):
 class Jump(MoveCard):
     """ The child class when moving forward."""
     def apply(self, player, game):
-        self.update_position(player, self.steps)
+        self.update_position(player, self.steps, game)
         game.record_history(f"Round {game.round}: {player.name}  passed their programming with python exam. Moved 2 steps forward")
 
 
 class Fall(MoveCard):
     """ The child class when moving backward."""
     def apply(self, player, game):
-        self.update_position(player, -self.steps)
+        self.update_position(player, -self.steps, game)
         game.record_history(f"Round {game.round}: {player.name} forgot to do laundry. Moved 3 steps backward")
 
 

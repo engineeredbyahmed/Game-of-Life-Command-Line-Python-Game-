@@ -3,7 +3,7 @@
 To create an instance of the Game of Life. 
 
 It imports the GameOfLife class
-It uses Play() method to start the game.
+It uses Play() method to start the ga2me.
 """
 
 from game import GameOfLife
