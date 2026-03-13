@@ -2,6 +2,7 @@ alive_progress==3.3.0
 Faker==40.8.0
 halo==0.0.31
 pyfiglet==1.0.4
+pyjokes==0.8.3
 pytest==9.0.2
 Sphinx==9.1.0
 tabulate==0.9.0

@@ -22,4 +22,7 @@ class Deck:
         random.shuffle(self.cards)
 
     def draw(self):
-        return self.cards.pop()
+        card = self.cards.pop(0)
+        self.cards.append(card)
+        return card
+       
