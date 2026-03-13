@@ -467,3 +467,267 @@ class GameOfLife:
         self.winner_announcement()
 
 
+
+
+
+
+"""
+          *** AI declaration ***
+Gen AI used: ChatGPT
+Prompt used:
+"give me ideas on how to connect my classes of game of life hasbro in python without writting code. 
+Players, cards, spaces, deck, board , and dice"
+ 
+Output returned from GenAI:
+Think of your program as one main game controller that manages everything.
+Big picture
+Game is the center.
+It owns or controls:
+Players
+Board
+Deck
+Dice
+Then:
+Board is made of Spaces
+Deck is made of Cards
+So the structure is:
+Game
+→ has many Players
+→ has one Board
+→ has one Deck
+→ has one Dice
+Board
+→ has many Spaces
+Deck
+→ has many Cards
+That is the simplest and most logical design.
+What each class is responsible for
+1. Game
+This should be the “manager” of the whole game.
+It should know:
+whose turn it is
+when the game starts
+when the game ends
+how turns happen in order
+when a player rolls the dice
+when a player moves
+what happens when they land on a space
+when to draw a card
+how to determine the winner
+So the Game class does not do every detail itself, but it tells the other classes when to act.
+You can think of it like the director of a movie.
+2. Player
+A Player represents one person in the game.
+A player should store things like:
+name
+money / cash
+current position on the board
+job / life status if your version includes that
+retirement state if relevant
+any other personal game data
+The player does not control the whole game.
+It only stores and updates its own state.
+So the player is more like:
+“I am Ahmed, I have £5000, I’m on space 7, and I’m retired.”
+3. Board
+The Board is the path players move through.
+It should:
+contain all spaces in order
+know how many spaces exist
+help identify which space a player is standing on
+help with movement around the track if needed
+The board should not decide the whole turn.
+It mainly represents the layout of the game world.
+4. Space
+A Space is one location on the board.
+Examples:
+Start
+Payday
+Event
+Choice
+Tax
+Retirement
+Each space should represent one type of landing action.
+A good way to think about it:
+The Board is the full road
+A Space is one square on that road
+When a player lands somewhere, the Game asks the board which space is there, and then that Space causes its effect.
+5. Card
+A Card is one event or instruction.
+Examples:
+receive money
+lose money
+move forward
+move backward
+special effect
+A card should only represent one event and its impact.
+So a card is not the whole deck, and not the whole game.
+It is just one instruction object.
+6. Deck
+The Deck manages all cards.
+It should:
+hold the collection of cards
+shuffle them
+give one card when needed
+possibly remove used cards if they should run out
+possibly reset if empty, depending on your rules
+So:
+Card = one item
+Deck = collection of card items
+7. Dice
+The Dice is simple.
+It should only be responsible for:
+generating a random roll
+returning a valid dice number
+That’s all.
+It should not move the player directly.
+It should not change money.
+It should not control turns.
+The Game uses the dice result to decide movement.
+How the classes interact during a turn
+A turn can be imagined like this:
+Game selects the current Player
+Game tells Dice to roll
+Dice returns a number
+Game updates the Player position
+Game asks the Board which Space the player landed on
+That Space triggers its effect
+If the space requires a card:
+Game asks Deck for a Card
+the Card affects the Player
+Game checks whether the game should continue
+This is the cleanest flow.
+Best relationship map
+You can describe the relationships like this in your report or notebook:
+Game has Players
+Game has a Board
+Game has a Deck
+Game has a Dice
+Board contains Spaces
+Deck contains Cards
+Player interacts with Board by moving across Spaces
+Player interacts with Cards when drawing from the Deck
+Dice provides movement value to the Game
+Game coordinates all interactions
+That already sounds strong and organized.
+A useful mental model
+Here is a very easy analogy:
+Game = teacher running the classroom
+Players = students
+Board = classroom map
+Spaces = desks/stations in the classroom
+Deck = stack of instruction papers
+Cards = one instruction paper
+Dice = random number tool
+The teacher controls the lesson, but the students, map, and papers each have their own role.
+Composition idea
+A strong OOP way to explain it is this:
+Your design mostly uses composition.
+Meaning:
+a board is composed of spaces
+a deck is composed of cards
+a game is composed of players, board, dice, and deck
+This is usually cleaner than putting all logic in one giant class.
+Good separation of responsibility
+A common mistake is making one class do too much.
+A cleaner split is:
+Game = controls flow
+Player = stores player state
+Board = stores path
+Space = defines landing behavior
+Deck = manages cards
+Card = defines one event
+Dice = gives random move value
+That separation will make your design easier to explain in coursework.
+If you want inheritance too
+You can also structure Spaces and Cards using inheritance.
+For example conceptually:
+Space as a parent idea
+StartSpace
+PaydaySpace
+EventSpace
+TaxSpace
+RetirementSpace
+And:
+Card as a parent idea
+GiftCard
+TicketCard
+MoveForwardCard
+MoveBackCard
+Why this helps:
+Each subtype has the same general purpose, but different behavior.
+That makes your design more organized and more object-oriented.
+
+
+
+Gen AI used: ChatGPT
+Prompt used:
+"how to declare winner in a simple way without writing code"
+ 
+Output returned from GenAI:
+The simplest way to think about declaring the winner is to treat it as a final comparison step after the game ends.
+Instead of thinking about code, imagine it as a logical procedure.
+1. Decide what determines the winner
+In the Hasbro Game of Life, the winner is usually:
+The player with the most money at the end of the game.
+So your rule becomes:
+Winner = player with the highest balance.
+You only need one value to compare.
+2. Wait until the game ends
+You should only determine the winner after all players reach retirement (or after the game finishes according to your rules).
+So the sequence conceptually is:
+All players take turns.
+Players eventually reach retirement.
+The game finishes.
+The winner is determined.
+3. Compare all players' money
+Now imagine you place all players on a table and look at their balances.
+Example:
+Player	Cash
+Ahmed	12000
+Michael	15000
+Sarah	15000
+You simply ask:
+Who has the highest amount?
+4. Handle two possible outcomes
+Case 1 — One player has the highest balance
+Example:
+Player	Cash
+Ahmed	12000
+Michael	15000
+Sarah	13000
+Winner:
+Michael
+Case 2 — Two or more players have the same highest balance
+Example:
+Player	Cash
+Ahmed	15000
+Michael	15000
+Sarah	13000
+Then you declare:
+Tie between Ahmed and Michael
+5. Conceptual algorithm (no code)
+The logic in plain language:
+Assume the first player is the winner.
+Check the next player.
+If that player has more money, update the winner.
+Continue checking every player.
+If two players have the same highest value, mark it as a tie.
+After checking everyone, announce the result.
+6. Simple wording for your report
+You could describe it like this:
+At the end of the game, the balances of all players are compared. The player with the highest amount of money is declared the winner. If two or more players have the same highest balance, the game declares a tie.
+That explanation is clear, simple, and academically acceptable.
+7. Mental model
+Think of it like a leaderboard at the end of a race:
+Everyone finishes.
+You check who has the highest score.
+If two people have the same score → tie.
+
+
+
+Gen AI used: ChatGPT
+Prompt used:
+"how to declare winner in a simple way without writing code"
+
+"""

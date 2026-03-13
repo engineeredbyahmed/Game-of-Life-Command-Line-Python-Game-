@@ -59,7 +59,8 @@ class Taxpay(Space):
         player.pay(500)
         print(player.name, Style.color_text("You have to pay taxes. 500 is taken from you.", Style.Red))
         print("Cash after:", player.cash)
-        game.record_history(f"Round {game.round}: {player.name} lost 500 to pay taxes")
+        if game:
+            game.record_history(f"Round {game.round}: {player.name} lost 500 to pay taxes")
 
 
 
@@ -140,7 +141,8 @@ class Retirement(Space):
     def activate(self, game, player):
         player.retire()
         print(Style.color_text("You have officially retired!", Style.BOLD))
-        game.record_history(f"Round {game.round}: {player.name} has officially retired")
+        if game:
+            game.record_history(f"Round {game.round}: {player.name} has officially retired")
         print(Style.color_text("You will gain 7% each round until other players finish", Style.Underline))
 
     
