@@ -8,7 +8,7 @@ I acknowledge the following uses of GenAI tools in this assessment:
 - [ ] identify trends and themes as part of my data analysis
 - [*] suggest a plan or structure for my assessment.
 - [*] give me feedback on a draft.
-- [ ] generate images, figures or diagrams.
+- [*] generate images, figures or diagrams.
 - [ ] proofread and correct grammar or spelling errors.
 - [ ] generate citations or references.
 - [*] Other: [please specify]
@@ -125,7 +125,7 @@ class GameOfLife:
 
     # ---------------------------------------------------------------------------
     # User Input
-    # This section include all usuer input for the game:
+    # This section include all user input for the game:
     # (1) Number of players, (2) Name of PLayers, (3) Action during each game round
     # ---------------------------------------------------------------------------
     def get_num_players(self) -> int:
@@ -266,7 +266,7 @@ class GameOfLife:
         """
 
         #Assumed the first player is always the winner to start with
-        #Sittign tie is false until told otherwise
+        #Setting tie is false until told otherwise
         winner = self.players[0]
         tie = False
 
@@ -300,7 +300,7 @@ class GameOfLife:
         """
         To display the history.
         """
-        print("------- Game History ------")
+        print("------- Game History -------")
 
         if not self.history:
             print("No incidents yet.")
@@ -326,7 +326,7 @@ class GameOfLife:
     def handle_quit(self, player: Player):
         """
         if a player chooses (q) the game is terminated.
-        to show game summary of the game and declare winner immediatel. 
+        to show game summary of the game and declare winner immediately.
         """
         print(player.name, "Thank you for playing. Sad to see you go ):")
         self.summary()
@@ -338,7 +338,7 @@ class GameOfLife:
         the space where a player lands on.
         """ 
 
-        # Used Halo lirbrary for fun effects 
+        # Used Halo library for fun effects 
         # I made the Dice as a static method
         # because the player will only use one dice the whole game
         dice = Halo(text='Rolling dice...', spinner='dots')
@@ -372,7 +372,7 @@ class GameOfLife:
         """
         INTEREST = 0.07 # Defined the interest rate 
 
-        # Each round retried players earn interest on their total cash
+        # Each round retired players earn interest on their total cash
         # It returns True for the game to continue
         if player.retired:
             interest = int(player.cash * INTEREST)
@@ -715,7 +715,8 @@ If two players have the same highest value, mark it as a tie.
 After checking everyone, announce the result.
 6. Simple wording for your report
 You could describe it like this:
-At the end of the game, the balances of all players are compared. The player with the highest amount of money is declared the winner. If two or more players have the same highest balance, the game declares a tie.
+At the end of the game, the balances of all players are compared. The player with the highest amount of money is declared the winner. 
+If two or more players have the same highest balance, the game declares a tie.
 That explanation is clear, simple, and academically acceptable.
 7. Mental model
 Think of it like a leaderboard at the end of a race:
@@ -727,6 +728,68 @@ If two people have the same score → tie.
 
 Gen AI used: ChatGPT
 Prompt used:
-"how to declare winner in a simple way without writing code"
+"I'd like to implment a card where a player is punished by being forced to skip a turn. 
+how would I do that without writing code for me"
+
+Output returned from GenAI:
+1. Give the player a state that can remember penalties
+Your Player object should know whether they must miss a future turn.
+Common ways:
+a boolean like “skip next turn”
+or a counter like “turns to skip”
+The counter approach is usually better, because later you can support:
+skip 1 turn
+skip 2 turns
+stack penalties
+2. Let the card apply an effect to the player
+The skip-turn card should not run the whole turn logic itself. Its job is only:
+identify the player
+update that player’s skip status
+So conceptually, when the card is drawn, it changes something on the player such as:
+“this player must skip 1 turn”
+That keeps responsibilities clear:
+card = applies effect
+player = stores status
+game loop = checks whether player can act
+3. Check the penalty at the start of a turn
+Before a player rolls or chooses an action, your turn system should ask:
+Is this player supposed to skip?
+If yes:
+show a message
+reduce the skip count
+end their turn immediately
+If no:
+continue normally
+That check belongs in the place that controls turns, not inside every individual action.
+4. Decide exactly when the skip happens
+You need one rule and stick to it:
+Usually the best rule is:
+player draws the punishment card now
+they finish the consequence of drawing it
+on their next turn, they lose the turn
+That is clearer than making them lose the current turn halfway through.
+5. Use wording that matches the mechanic
+Be careful with the description:
+“Skip your next turn” = one future turn lost
+“Miss the next 2 turns” = counter becomes 2
+That way the text matches the actual game behavior.
+6. Keep it scalable
+If you design it as a generic status effect, later you can easily add cards like:
+move back 2 spaces
+skip next turn
+gain bonus next payday
+protected from next tax
+So think in terms of:
+player has attributes/state
+cards modify that state
+turn system reads that state
+A simple mental flow
+It should behave like this:
+Player lands on event/card space
+Skip-turn card is drawn
+Card marks player as needing to skip a future turn
+Game continues normally
+When that player’s next turn begins, the game detects the penalty
+Their turn is skipped and the penalty is cleared or reduced
 
 """
