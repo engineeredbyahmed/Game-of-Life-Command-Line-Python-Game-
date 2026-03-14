@@ -24,7 +24,7 @@ ________________________________ End of declaration ____________________________
 """
 
 # ---------------------------------------------------------------------------
-# importing all classes to the game loop
+# Importing all classes to the game loop
 # ---------------------------------------------------------------------------
 from player import Player
 from dice import Dice
@@ -36,7 +36,7 @@ from Style import Style
 
 
 # ---------------------------------------------------------------------------
-# importing all libraries to the game loop
+# Importing all libraries to the game loop
 # ---------------------------------------------------------------------------
 from alive_progress import alive_bar
 import time
@@ -49,6 +49,7 @@ import random
 import pyjokes
 
 fake = Faker()
+# to generate random name
 
 
 class GameOfLife:
@@ -104,9 +105,6 @@ class GameOfLife:
             spaces.Retirement()
         ])
 
-        
-        
-        
 
         self.cards = Deck([
             card.Gift(Style.color_text("Gift from best friend (+250)", Style.Green), 250),
@@ -117,6 +115,7 @@ class GameOfLife:
             card.SkipTurn(Style.color_text("You are punished by being forced to miss this turn", Style.B_Red))
         ])
         self.cards.shuffle()
+
 
     def get_next_joke(self):
         if not self.jokes:
